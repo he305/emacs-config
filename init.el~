@@ -1,0 +1,51 @@
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(package-selected-packages (quote (org real-auto-save monokai-theme auto-complete))))
+
+(global-hl-line-mode 1)
+(setq visible-bell 1)
+(setq frame-title-format "emacs")
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(ido-mode)
+(column-number-mode 1)
+(show-paren-mode)
+(winner-mode t)
+(windmove-default-keybindings)
+
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
+(ac-config-default)
+(global-auto-complete-mode t)
+
+;;autosave
+(require 'real-auto-save)
+(add-hook 'prog-mode-hook 'real-auto-save-mode)
+(setq real-auto-save-interval 60)
+
+;;font
+(set-frame-font "Consolas 14" nil t)
+
+(load-theme 'monokai t)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;org
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+(setq org-agenda-files (list "C:/MEGA/todo.org"))
+
