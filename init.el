@@ -6,7 +6,10 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (irony emmet-mode yasnippet helm dired+ python neotree org real-auto-save monokai-theme auto-complete))))
+    (smex dired-launch projectile dashboard python-mode flycheck irony emmet-mode yasnippet helm dired+ python neotree org real-auto-save monokai-theme auto-complete))))
+
+;;keys
+(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
 
 ;;disable backup
 (setq make-backup-files nil) ; stop creating backup~ files
@@ -22,8 +25,10 @@
 (column-number-mode 1)
 (show-paren-mode)
 (winner-mode t)
-(windmove-default-keybindings)
-(desktop-save-mode 1)
+(windmove-default-keybindings 'meta)
+;;(desktop-save-mode 1)
+(electric-pair-mode 1)
+(linum-mode 1)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
@@ -56,6 +61,13 @@
 (setq org-agenda-files (list "C:/MEGA/todo.org"))
 (setq org-agenda-start-on-weekday 1)
 
+;;smex
+(require 'smex) ; Not needed if you use package.el
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
 
 ;;neotree
 (require 'neotree)
@@ -73,7 +85,7 @@
 
 ;;ac-html
 (defun setup-ac-for-haml ()
-  ;; Require ac-haml since we are setup haml auto completion
+  ;;Require ac-haml since we are setup haml auto completion
   (require 'ac-haml)
   ;; Require default data provider if you want to use
   (require 'ac-html-default-data-provider)
@@ -97,5 +109,14 @@
 (add-hook 'objc-mode-hook 'irony-mode)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
+;;flycheck
+(global-flycheck-mode)
 
 (cd "C:/Git")
+
+(require 'dashboard)
+(setq dashboard-startup-banner "~/.emacs.d/images/yui.png")
+(setq dashboard-items '((recents  . 5)
+                        (projects . 5)
+                        (agenda . 5)))
+(dashboard-setup-startup-hook)
